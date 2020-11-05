@@ -33,6 +33,6 @@ class _SplashScreenState extends State<SplashScreen> {
       route = MaterialPageRoute(builder: (ctx) => HomeScreen());
     }
 
-    // Navigator.of(context).push(route);
+    Navigator.of(context).push(route);
   }
 }
