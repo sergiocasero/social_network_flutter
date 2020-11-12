@@ -17,6 +17,8 @@ class AuthScreen extends StatelessWidget {
           SvgPicture.asset(
             "assets/welcome.svg",
             fit: BoxFit.cover,
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height / 1.5,
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
