@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:social_network_flutter/datasource/di/DI.dart';
 import 'package:social_network_flutter/model/AuthModel.dart';
+import 'package:social_network_flutter/widget/auth/AuthButton.dart';
 
 class AuthScreen extends StatelessWidget {
   final AuthModel _authModel = AuthModel();
@@ -22,6 +24,7 @@ class AuthScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Obx(() => _showStatus()),
                 Text(
                   "Social network",
                   style: TextStyle(
@@ -37,47 +40,19 @@ class AuthScreen extends StatelessWidget {
                     fontSize: 14,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: Container(
-                    width: double.infinity,
-                    child: RaisedButton(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text("Log in"),
-                      ),
-                      onPressed: () => _authModel.onLoginTap(),
-                      color: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                  ),
+                AuthButton(
+                  title: "Log in",
+                  backgroundColor: Colors.white,
+                  borderColor: Colors.white,
+                  textColor: DI.mainColor,
+                  onTap: () => _authModel.onLoginTap(),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: Container(
-                    width: double.infinity,
-                    child: RaisedButton(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          "Sign up",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      onPressed: () => _authModel.onRegisterTap(),
-                      color: Colors.transparent,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        side: BorderSide(color: Colors.white),
-                      ),
-                    ),
-                  ),
+                AuthButton(
+                  title: "Sign up",
+                  backgroundColor: Colors.transparent,
+                  borderColor: Colors.white,
+                  textColor: Colors.white,
+                  onTap: () => _authModel.onRegisterTap(),
                 ),
               ],
             ),
@@ -85,5 +60,17 @@ class AuthScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _showStatus() {
+    switch (_authModel.authState.value) {
+      case AuthState.WELCOME:
+        return Text("welcome", style: TextStyle(fontSize: 50));
+      case AuthState.LOGIN:
+        return Text("login", style: TextStyle(fontSize: 50));
+      case AuthState.REGISTER:
+        return Text("register", style: TextStyle(fontSize: 50));
+    }
+    return Text("welcome", style: TextStyle(fontSize: 50));
   }
 }
