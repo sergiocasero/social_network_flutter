@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:social_network_flutter/datasource/local/PreferencesLocal.dart';
 import 'package:social_network_flutter/datasource/remote/NetworkRemote.dart';
 import 'package:social_network_flutter/repository/Repository.dart';
@@ -8,4 +9,6 @@ class DI {
     PreferencesLocal(),
     NetworkRemote(),
   );
+
+  static Color mainColor = Color.fromRGBO(0, 107, 255, 1);
 }
