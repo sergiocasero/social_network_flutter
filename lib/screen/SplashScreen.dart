@@ -1,38 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:social_network_flutter/datasource/di/DI.dart';
-import 'package:social_network_flutter/screen/HomeScreen.dart';
-import 'package:social_network_flutter/screen/LoginRegisterScreen.dart';
+import 'package:social_network_flutter/model/SplashModel.dart';
 
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    _checkAuth();
-    super.initState();
-  }
+class SplashScreen extends StatelessWidget {
+  final SplashModel _splashModel = SplashModel();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DI.mainColor,
       body: Center(
         child: CircularProgressIndicator(),
       ),
     );
-  }
-
-  void _checkAuth() async {
-    final isAuth = await DI.repository.isUserAuth();
-
-    var route = MaterialPageRoute(builder: (ctx) => LoginRegisterScreen());
-
-    if (isAuth) {
-      route = MaterialPageRoute(builder: (ctx) => HomeScreen());
-    }
-
-    Navigator.of(context).push(route);
   }
 }
