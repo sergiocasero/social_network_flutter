@@ -17,16 +17,18 @@ class SocialRepository extends Repository {
 
   @override
   Future<User> getUser() async {
-    if(await local.hasUser()) {
+    if (await local.hasUser()) {
       return local.getUser();
     } else {
-      return remote.getUser();
+      return remote.getUser(await local.getToken());
     }
   }
 
   @override
-  Future<bool> login(String id, String password) {
-    return remote.login(id, password);
+  Future<bool> login(String id, String password) async {
+    final token = await remote.login(id, password);
+    local.setToken(token);
+    return true;
   }
 
   @override
