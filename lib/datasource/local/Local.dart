@@ -3,9 +3,11 @@ import 'package:social_network_flutter/domain/model/User.dart';
 abstract class Local {
   Future<bool> isUserAuth();
 
-  bool hasUser();
+  Future<bool> hasUser();
 
   Future<User> getUser();
+
+  Future<void> setUser(User user);
 
   Future<String> getToken();
 
