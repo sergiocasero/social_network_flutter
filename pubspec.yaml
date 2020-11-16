@@ -16,7 +16,7 @@ dependencies:
   flutter_svg: ^0.19.1
   shared_preferences: ^0.5.12+4
   http: ^0.12.2
-
+  google_fonts: ^1.1.1
   cupertino_icons: ^1.0.0
 
 dev_dependencies:

@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Social network',
       translations: Messages(),
-      locale: Get.deviceLocale,
+      locale: Locale("en", "US"),
       fallbackLocale: Locale("en", "US"),
       theme: ThemeData(
         primarySwatch: Colors.blue,
