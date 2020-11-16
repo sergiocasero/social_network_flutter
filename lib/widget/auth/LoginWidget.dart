@@ -7,6 +7,15 @@ import 'package:social_network_flutter/datasource/di/DI.dart';
 import 'package:social_network_flutter/widget/auth/AuthButton.dart';
 
 class LoginWidget extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+
+  String _email = "";
+  String _password = "";
+
+  final Function(String, String) onDoLogin;
+
+  LoginWidget({Key key, this.onDoLogin}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,50 +42,70 @@ class LoginWidget extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: ClipPath(
               clipper: WaveClipperTwo(reverse: true),
-              child: Container(
-                color: Colors.white,
-                padding: EdgeInsets.only(
-                    left: 16.0, right: 16.0, bottom: 16, top: 60),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "welcome_email_field".tr,
-                          icon: Icon(Icons.email),
+              child: Form(
+                key: _formKey,
+                child: Container(
+                  color: Colors.white,
+                  padding: EdgeInsets.only(
+                      left: 16.0, right: 16.0, bottom: 16, top: 60),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            labelText: "welcome_email_field".tr,
+                            icon: Icon(Icons.email),
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'error_email_is_mandatory'.tr;
+                            } else if (!value.isEmail) {
+                              return 'error_email_must_be_email'.tr;
+                            }
+
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _email = value;
+                          },
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "welcome_pass_field".tr,
-                          icon: Icon(Icons.lock),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            labelText: "welcome_pass_field".tr,
+                            icon: Icon(Icons.lock),
+                          ),
+                          obscureText: true,
+                          onSaved: (value) {
+                            _password = value;
+                          },
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: AuthButton(
-                        title: "welcome_login_button".tr,
-                        backgroundColor: DI.mainColor,
-                        borderColor: DI.mainColor,
-                        textColor: Colors.white,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: AuthButton(
+                          title: "welcome_login_button".tr,
+                          backgroundColor: DI.mainColor,
+                          borderColor: DI.mainColor,
+                          textColor: Colors.white,
+                          onTap: () => _onLoginTap(),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: AuthButton(
-                        title: "welcome_signup_button".tr,
-                        backgroundColor: Colors.transparent,
-                        borderColor: Colors.black,
-                        textColor: Colors.black,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: AuthButton(
+                          title: "welcome_signup_button".tr,
+                          backgroundColor: Colors.transparent,
+                          borderColor: Colors.black,
+                          textColor: Colors.black,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -84,5 +113,12 @@ class LoginWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _onLoginTap() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      onDoLogin(_email, _password);
+    }
   }
 }
