@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:social_network_flutter/datasource/di/DI.dart';
 import 'package:social_network_flutter/viewmodel/AuthModel.dart';
-import 'package:social_network_flutter/widget/auth/AuthButton.dart';
+import 'package:social_network_flutter/widget/auth/LoginWidget.dart';
+import 'package:social_network_flutter/widget/auth/RegisterWidget.dart';
+import 'package:social_network_flutter/widget/auth/WelcomeWidget.dart';
 
 class AuthScreen extends StatelessWidget {
   final AuthModel _authModel = AuthModel();
@@ -12,55 +13,24 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: DI.mainColor,
-      body: Stack(
-        children: [
-          SvgPicture.asset(
-            "assets/welcome.svg",
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height / 1.5,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Obx(() => _showStatus()),
-                Text(
-                  "welcome_title".tr,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  "welcome_subtitle".tr,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                  ),
-                ),
-                AuthButton(
-                  title: "welcome_login_button".tr,
-                  backgroundColor: Colors.white,
-                  borderColor: Colors.white,
-                  textColor: DI.mainColor,
-                  onTap: () => _authModel.onLoginTap(),
-                ),
-                AuthButton(
-                  title: "welcome_signup_button".tr,
-                  backgroundColor: Colors.transparent,
-                  borderColor: Colors.white,
-                  textColor: Colors.white,
-                  onTap: () => _authModel.onRegisterTap(),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+      body: Obx(() {
+        switch (_authModel.authState.value) {
+          case AuthState.WELCOME:
+            return WelcomeWidget(
+              onLoginTap: () => _authModel.onLoginTap(),
+              onRegisterTap: () => _authModel.onRegisterTap(),
+            );
+          case AuthState.LOGIN:
+            return LoginWidget();
+          case AuthState.REGISTER:
+            return RegisterWidget();
+          default:
+            return WelcomeWidget(
+              onLoginTap: () => _authModel.onLoginTap(),
+              onRegisterTap: () => _authModel.onRegisterTap(),
+            );
+        }
+      }),
     );
   }
 
