@@ -28,7 +28,7 @@ class AuthScreen extends StatelessWidget {
               children: [
                 Obx(() => _showStatus()),
                 Text(
-                  "Social network",
+                  "welcome_title".tr,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 30,
@@ -36,21 +36,21 @@ class AuthScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "The social network that doesn't collect your personal data",
+                  "welcome_subtitle".tr,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,
                   ),
                 ),
                 AuthButton(
-                  title: "Log in",
+                  title: "welcome_login_button".tr,
                   backgroundColor: Colors.white,
                   borderColor: Colors.white,
                   textColor: DI.mainColor,
                   onTap: () => _authModel.onLoginTap(),
                 ),
                 AuthButton(
-                  title: "Sign up",
+                  title: "welcome_signup_button".tr,
                   backgroundColor: Colors.transparent,
                   borderColor: Colors.white,
                   textColor: Colors.white,

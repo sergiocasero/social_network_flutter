@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:social_network_flutter/screen/SplashScreen.dart';
+import 'package:social_network_flutter/tr/translations.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,7 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Social network',
+      translations: Messages(),
+      locale: Get.deviceLocale,
+      fallbackLocale: Locale("en", "US"),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
