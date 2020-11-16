@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
+import 'package:social_network_flutter/datasource/di/DI.dart';
 
 class AuthModel {
   final authState = AuthState.WELCOME.obs;
+
+  final loading = false.obs;
 
   void onLoginTap() {
     authState.value = AuthState.LOGIN;
@@ -11,9 +14,10 @@ class AuthModel {
     authState.value = AuthState.REGISTER;
   }
 
-  void onDoLogin(String email, String pass) {
-    print(email);
-    print(pass);
+  void onDoLogin(String email, String pass) async {
+    loading.value = true;
+    final result = await DI.repository.login(email, pass);
+    loading.value = false;
   }
 }
 

@@ -12,9 +12,10 @@ class LoginWidget extends StatelessWidget {
   String _email = "";
   String _password = "";
 
+  final loading;
   final Function(String, String) onDoLogin;
 
-  LoginWidget({Key key, this.onDoLogin}) : super(key: key);
+  LoginWidget({Key key, this.onDoLogin, this.loading}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +111,7 @@ class LoginWidget extends StatelessWidget {
               ),
             ),
           ),
+          if (loading) Center(child: CircularProgressIndicator()),
         ],
       ),
     );

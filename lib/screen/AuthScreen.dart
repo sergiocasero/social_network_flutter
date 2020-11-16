@@ -23,6 +23,7 @@ class AuthScreen extends StatelessWidget {
           case AuthState.LOGIN:
             return LoginWidget(
               onDoLogin: (email, pass) => _authModel.onDoLogin(email, pass),
+              loading: _authModel.loading.value,
             );
           case AuthState.REGISTER:
             return RegisterWidget();
