@@ -16,8 +16,8 @@ class SocialRepository extends Repository {
   }
 
   @override
-  Future<User> getUser() {
-    if(local.hasUser()) {
+  Future<User> getUser() async {
+    if(await local.hasUser()) {
       return local.getUser();
     } else {
       return remote.getUser();
