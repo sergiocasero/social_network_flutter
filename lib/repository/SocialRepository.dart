@@ -1,5 +1,6 @@
 import 'package:social_network_flutter/datasource/local/Local.dart';
 import 'package:social_network_flutter/datasource/remote/Remote.dart';
+import 'package:social_network_flutter/domain/model/User.dart';
 import 'package:social_network_flutter/repository/Repository.dart';
 
 class SocialRepository extends Repository {
@@ -12,5 +13,24 @@ class SocialRepository extends Repository {
   @override
   Future<bool> isUserAuth() {
     return local.isUserAuth();
+  }
+
+  @override
+  Future<User> getUser() {
+    if(local.hasUser()) {
+      return local.getUser();
+    } else {
+      return remote.getUser();
+    }
+  }
+
+  @override
+  Future<bool> login(String id, String password) {
+    return remote.login(id, password);
+  }
+
+  @override
+  Future<bool> register(User user) {
+    return remote.register(user);
   }
 }
