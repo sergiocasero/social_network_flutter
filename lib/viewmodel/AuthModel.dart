@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:social_network_flutter/datasource/di/DI.dart';
+import 'package:social_network_flutter/domain/model/User.dart';
+import 'package:social_network_flutter/screen/HomeScreen.dart';
 
 class AuthModel extends GetxController {
   final authState = AuthState.WELCOME.obs;
@@ -16,9 +18,9 @@ class AuthModel extends GetxController {
 
   void onDoLogin(String email, String pass) async {
     loading.value = true;
-    final loginSuccess = await DI.repository.login(email, pass);
+    final loginSuccess = await DI.repository.login(email, pass.encrypt());
     if (loginSuccess) {
-      // TODO: Navigate to home
+      Get.offAll(HomeScreen());
     } else {
       Get.snackbar(
         "login_error_title".tr,
@@ -26,6 +28,13 @@ class AuthModel extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
     }
+    loading.value = false;
+  }
+
+  void onDoRegister(User user) async {
+    loading.value = true;
+    await DI.repository.register(user);
+    authState.value = AuthState.LOGIN;
     loading.value = false;
   }
 }

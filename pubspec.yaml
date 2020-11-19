@@ -19,6 +19,7 @@ dependencies:
   google_fonts: ^1.1.1
   cupertino_icons: ^1.0.0
   flutter_custom_clippers: ^1.1.2
+  crypto: ^2.1.5
 
 dev_dependencies:
   flutter_test:

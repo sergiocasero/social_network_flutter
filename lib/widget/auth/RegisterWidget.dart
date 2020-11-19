@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:social_network_flutter/datasource/di/DI.dart';
+import 'package:social_network_flutter/domain/model/User.dart';
 import 'package:social_network_flutter/widget/auth/AuthTextFormField.dart';
 
 import 'AuthButton.dart';
@@ -13,6 +14,7 @@ class RegisterWidget extends StatelessWidget {
 
   final bool loading;
   final Function() onLoginTap;
+  final Function(User) onDoRegister;
 
   String _email;
   String _password;
@@ -20,7 +22,8 @@ class RegisterWidget extends StatelessWidget {
   String _description;
   String _website;
 
-  RegisterWidget({Key key, this.loading, this.onLoginTap}) : super(key: key);
+  RegisterWidget({Key key, this.loading, this.onLoginTap, this.onDoRegister})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +83,7 @@ class RegisterWidget extends StatelessWidget {
                         child: AuthTextFormField(
                           label: "welcome_pass_field".tr,
                           icon: Icons.lock,
+                          isPassword: true,
                           onSaved: (value) {
                             _password = value;
                           },
@@ -147,5 +151,20 @@ class RegisterWidget extends StatelessWidget {
     );
   }
 
-  void _onRegisterTap() {}
+  void _onRegisterTap() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+
+      final user = User(
+        id: _email,
+        description: _description,
+        password: _password.encrypt(),
+        name: _name,
+        website: _website,
+        pictureUrl: "",
+      );
+
+      onDoRegister(user);
+    }
+  }
 }

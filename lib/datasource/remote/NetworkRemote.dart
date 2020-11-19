@@ -37,10 +37,14 @@ class NetworkRemote extends Remote {
 
   @override
   Future<bool> register(User user) async {
-    try {
-      await http.post("$_ENDPOINT/register", body: jsonEncode(user.toJson()));
+    final response = await http.post(
+      "$_ENDPOINT/register",
+      body: jsonEncode(user.toJson()),
+      headers: {"Content-Type": "application/json"},
+    );
+    if (response.statusCode == HttpStatus.ok) {
       return true;
-    } catch (e) {
+    } else {
       return false;
     }
   }

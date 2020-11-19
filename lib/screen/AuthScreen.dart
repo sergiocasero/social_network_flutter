@@ -30,6 +30,7 @@ class AuthScreen extends StatelessWidget {
             return RegisterWidget(
               loading: _authModel.loading.value,
               onLoginTap: () => _authModel.onLoginTap(),
+              onDoRegister: (user) => _authModel.onDoRegister(user),
             );
           default:
             return WelcomeWidget(
@@ -39,17 +40,5 @@ class AuthScreen extends StatelessWidget {
         }
       }),
     );
-  }
-
-  Widget _showStatus() {
-    switch (_authModel.authState.value) {
-      case AuthState.WELCOME:
-        return Text("welcome", style: TextStyle(fontSize: 50));
-      case AuthState.LOGIN:
-        return Text("login", style: TextStyle(fontSize: 50));
-      case AuthState.REGISTER:
-        return Text("register", style: TextStyle(fontSize: 50));
-    }
-    return Text("welcome", style: TextStyle(fontSize: 50));
   }
 }
