@@ -7,7 +7,7 @@ import 'package:social_network_flutter/widget/auth/RegisterWidget.dart';
 import 'package:social_network_flutter/widget/auth/WelcomeWidget.dart';
 
 class AuthScreen extends StatelessWidget {
-  final AuthModel _authModel = AuthModel();
+  final AuthModel _authModel = Get.put(AuthModel());
 
   @override
   Widget build(BuildContext context) {

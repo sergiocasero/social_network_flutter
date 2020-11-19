@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:social_network_flutter/datasource/remote/Remote.dart';
 import 'package:social_network_flutter/domain/dto/UserResponse.dart';
+import 'package:social_network_flutter/domain/model/Identity.dart';
 import 'package:social_network_flutter/domain/model/User.dart';
 
 class NetworkRemote extends Remote {
@@ -21,16 +23,22 @@ class NetworkRemote extends Remote {
 
   @override
   Future<String> login(String id, String password) async {
-    final response =
-        await http.post("$_ENDPOINT/login", body: {"id": id, "pass": password});
+    final response = await http.post(
+      "$_ENDPOINT/login",
+      body: jsonEncode(Identity(id: id, pass: password).toJson()),
+      headers: {"Content-Type": "application/json"},
+    );
 
+    if (response.statusCode == HttpStatus.notFound) {
+      return "";
+    }
     return response.body;
   }
 
   @override
   Future<bool> register(User user) async {
     try {
-      await http.post("$_ENDPOINT/register", body: user.toJson());
+      await http.post("$_ENDPOINT/register", body: jsonEncode(user.toJson()));
       return true;
     } catch (e) {
       return false;

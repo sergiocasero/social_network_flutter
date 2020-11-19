@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:social_network_flutter/datasource/di/DI.dart';
-import 'package:social_network_flutter/screen/HomeScreen.dart';
 import 'package:social_network_flutter/screen/AuthScreen.dart';
+import 'package:social_network_flutter/screen/HomeScreen.dart';
 
-class SplashModel {
-  SplashModel() {
+class SplashModel extends GetxController {
+  @override
+  void onReady() {
     _checkAuth();
+    super.onReady();
   }
 
   void _checkAuth() async {

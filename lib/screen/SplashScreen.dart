@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:social_network_flutter/datasource/di/DI.dart';
 import 'package:social_network_flutter/viewmodel/SplashModel.dart';
 
 class SplashScreen extends StatelessWidget {
-  final SplashModel _splashModel = SplashModel();
+  final SplashModel _splashModel = Get.put(SplashModel());
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:social_network_flutter/datasource/di/DI.dart';
 
-class AuthModel {
+class AuthModel extends GetxController {
   final authState = AuthState.WELCOME.obs;
 
   final loading = false.obs;
@@ -17,6 +17,7 @@ class AuthModel {
   void onDoLogin(String email, String pass) async {
     loading.value = true;
     final result = await DI.repository.login(email, pass);
+    print(result);
     loading.value = false;
   }
 }

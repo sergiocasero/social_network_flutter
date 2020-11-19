@@ -15,7 +15,9 @@ class PreferencesLocal extends Local {
   @override
   Future<bool> isUserAuth() async {
     final prefs = await _preferences();
-    return prefs.containsKey(_AUTH_KEY) ? prefs.getString(_AUTH_KEY) : false;
+    return prefs.containsKey(_AUTH_KEY)
+        ? prefs.getString(_AUTH_KEY) != null && prefs.getString(_AUTH_KEY) != ""
+        : false;
   }
 
   @override
