@@ -13,7 +13,11 @@ class Messages extends Translations {
           "welcome_pass_field": "Password",
           "welcome_back": "Welcome\nback",
           "login_error_title": "Login error",
-          "login_error_message": "Login error"
+          "login_error_message": "Login error",
+          "register": "New account",
+          "welcome_name_field": "Name",
+          "welcome_description_field": "Description",
+          "welcome_website_field": "Website"
         },
         "es_ES": {
           "welcome_title": "Social network",
@@ -25,7 +29,11 @@ class Messages extends Translations {
           "welcome_pass_field": "",
           "welcome_back": "",
           "login_error_title": "Login error",
-          "login_error_message": "Login error"
+          "login_error_message": "Login error",
+          "register": "New account",
+          "welcome_name_field": "Name",
+          "welcome_description_field": "Description",
+          "welcome_website_field": "Website"
         }
       };
 }

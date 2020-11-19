@@ -23,10 +23,13 @@ class AuthScreen extends StatelessWidget {
           case AuthState.LOGIN:
             return LoginWidget(
               onDoLogin: (email, pass) => _authModel.onDoLogin(email, pass),
+              onRegisterTap: () => _authModel.onRegisterTap(),
               loading: _authModel.loading.value,
             );
           case AuthState.REGISTER:
-            return RegisterWidget();
+            return RegisterWidget(
+              loading: _authModel.loading.value,
+            );
           default:
             return WelcomeWidget(
               onLoginTap: () => _authModel.onLoginTap(),

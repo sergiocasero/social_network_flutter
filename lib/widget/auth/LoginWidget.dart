@@ -14,8 +14,9 @@ class LoginWidget extends StatelessWidget {
 
   final loading;
   final Function(String, String) onDoLogin;
+  final Function() onRegisterTap;
 
-  LoginWidget({Key key, this.onDoLogin, this.loading}) : super(key: key);
+  LoginWidget({Key key, this.onDoLogin, this.loading, this.onRegisterTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +104,7 @@ class LoginWidget extends StatelessWidget {
                           backgroundColor: Colors.transparent,
                           borderColor: Colors.black,
                           textColor: Colors.black,
+                          onTap: () => onRegisterTap(),
                         ),
                       ),
                     ],
