@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:social_network_flutter/viewmodel/HomeModel.dart';
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
+class HomeScreen extends StatelessWidget {
+  final HomeModel _model = Get.put(HomeModel());
 
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Home screen"),
+        child: Obx(
+          () => Text(
+            _model.name.value,
+          ),
+        ),
       ),
     );
   }

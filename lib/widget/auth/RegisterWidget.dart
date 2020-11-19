@@ -57,89 +57,91 @@ class RegisterWidget extends StatelessWidget {
                   color: Colors.white,
                   padding: EdgeInsets.only(
                       left: 16.0, right: 16.0, bottom: 16, top: 60),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AuthTextFormField(
-                          label: "welcome_email_field".tr,
-                          icon: Icons.email,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'error_email_is_mandatory'.tr;
-                            } else if (!value.isEmail) {
-                              return 'error_email_must_be_email'.tr;
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _email = value;
-                          },
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AuthTextFormField(
+                            label: "welcome_email_field".tr,
+                            icon: Icons.email,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'error_email_is_mandatory'.tr;
+                              } else if (!value.isEmail) {
+                                return 'error_email_must_be_email'.tr;
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _email = value;
+                            },
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AuthTextFormField(
-                          label: "welcome_pass_field".tr,
-                          icon: Icons.lock,
-                          isPassword: true,
-                          onSaved: (value) {
-                            _password = value;
-                          },
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AuthTextFormField(
+                            label: "welcome_pass_field".tr,
+                            icon: Icons.lock,
+                            isPassword: true,
+                            onSaved: (value) {
+                              _password = value;
+                            },
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AuthTextFormField(
-                          label: "welcome_name_field".tr,
-                          icon: Icons.account_box,
-                          onSaved: (value) {
-                            _name = value;
-                          },
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AuthTextFormField(
+                            label: "welcome_name_field".tr,
+                            icon: Icons.account_box,
+                            onSaved: (value) {
+                              _name = value;
+                            },
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AuthTextFormField(
-                          label: "welcome_description_field".tr,
-                          icon: Icons.description,
-                          onSaved: (value) {
-                            _description = value;
-                          },
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AuthTextFormField(
+                            label: "welcome_description_field".tr,
+                            icon: Icons.description,
+                            onSaved: (value) {
+                              _description = value;
+                            },
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AuthTextFormField(
-                          label: "welcome_website_field".tr,
-                          icon: Icons.web,
-                          onSaved: (value) {
-                            _website = value;
-                          },
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AuthTextFormField(
+                            label: "welcome_website_field".tr,
+                            icon: Icons.web,
+                            onSaved: (value) {
+                              _website = value;
+                            },
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AuthButton(
-                          title: "welcome_signup_button".tr,
-                          backgroundColor: DI.mainColor,
-                          borderColor: DI.mainColor,
-                          textColor: Colors.white,
-                          onTap: () => _onRegisterTap(),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AuthButton(
+                            title: "welcome_signup_button".tr,
+                            backgroundColor: DI.mainColor,
+                            borderColor: DI.mainColor,
+                            textColor: Colors.white,
+                            onTap: () => _onRegisterTap(),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AuthButton(
-                          title: "welcome_login_button".tr,
-                          backgroundColor: Colors.transparent,
-                          borderColor: Colors.black,
-                          textColor: Colors.black,
-                          onTap: () => onLoginTap(),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AuthButton(
+                            title: "welcome_login_button".tr,
+                            backgroundColor: Colors.transparent,
+                            borderColor: Colors.black,
+                            textColor: Colors.black,
+                            onTap: () => onLoginTap(),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
