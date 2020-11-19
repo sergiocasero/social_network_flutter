@@ -12,6 +12,7 @@ class RegisterWidget extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   final bool loading;
+  final Function() onLoginTap;
 
   String _email;
   String _password;
@@ -19,7 +20,7 @@ class RegisterWidget extends StatelessWidget {
   String _description;
   String _website;
 
-  RegisterWidget({Key key, this.loading}) : super(key: key);
+  RegisterWidget({Key key, this.loading, this.onLoginTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +132,7 @@ class RegisterWidget extends StatelessWidget {
                           backgroundColor: Colors.transparent,
                           borderColor: Colors.black,
                           textColor: Colors.black,
+                          onTap: () => onLoginTap(),
                         ),
                       ),
                     ],

@@ -29,6 +29,7 @@ class AuthScreen extends StatelessWidget {
           case AuthState.REGISTER:
             return RegisterWidget(
               loading: _authModel.loading.value,
+              onLoginTap: () => _authModel.onLoginTap(),
             );
           default:
             return WelcomeWidget(
