@@ -26,13 +26,9 @@ class SocialRepository extends Repository {
 
   @override
   Future<bool> login(String id, String password) async {
-    try {
-      final token = await remote.login(id, password);
-      local.setToken(token);
-      return true;
-    } catch (e) {
-      return false;
-    }
+    final token = await remote.login(id, password);
+    local.setToken(token);
+    return token != "";
   }
 
   @override

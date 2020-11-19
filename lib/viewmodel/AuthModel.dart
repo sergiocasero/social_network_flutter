@@ -16,8 +16,16 @@ class AuthModel extends GetxController {
 
   void onDoLogin(String email, String pass) async {
     loading.value = true;
-    final result = await DI.repository.login(email, pass);
-    print(result);
+    final loginSuccess = await DI.repository.login(email, pass);
+    if (loginSuccess) {
+      // TODO: Navigate to home
+    } else {
+      Get.snackbar(
+        "login_error_title".tr,
+        "login_error_message".tr,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
     loading.value = false;
   }
 }

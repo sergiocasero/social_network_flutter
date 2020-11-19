@@ -11,7 +11,9 @@ class Messages extends Translations {
           "welcome_signup_button": "Sign up",
           "welcome_email_field": "Email",
           "welcome_pass_field": "Password",
-          "welcome_back": "Welcome\nback"
+          "welcome_back": "Welcome\nback",
+          "login_error_title": "Login error",
+          "login_error_message": "Login error"
         },
         "es_ES": {
           "welcome_title": "Social network",
@@ -21,7 +23,9 @@ class Messages extends Translations {
           "welcome_signup_button": "Registro",
           "welcome_email_field": "",
           "welcome_pass_field": "",
-          "welcome_back": ""
+          "welcome_back": "",
+          "login_error_title": "Login error",
+          "login_error_message": "Login error"
         }
       };
 }
