@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:social_network_flutter/datasource/di/DI.dart';
-import 'package:social_network_flutter/screen/PathScreen.dart';
+import 'package:social_network_flutter/viewmodel/PathModel.dart';
 
 class HomeModel extends GetxController {
   final name = "".obs;
-  final assetPaths = <AssetPathEntity>[].obs;
+  final media = <Media>[].obs;
 
   @override
   void onReady() {
@@ -23,11 +23,19 @@ class HomeModel extends GetxController {
     var hasPermission = await PhotoManager.requestPermission();
     if (hasPermission) {
       final items = await PhotoManager.getAssetPathList();
-      assetPaths.assignAll(items);
+      final assets = <AssetEntity>[];
+      for (final path in items) {
+        assets.addAll(await path.getAssetListRange(start: 0, end: path.assetCount));
+      }
+      assets.sort((a1, a2) => a2.createDateTime.millisecondsSinceEpoch - a1.createDateTime.millisecondsSinceEpoch);
+
+      for (final asset in assets) {
+        this.media.add(Media(id: asset.id, thumb: await asset.thumbDataWithSize(100, 100)));
+      }
     }
   }
 
-  void onItemTap(AssetPathEntity item) {
-    Get.to(PathScreen(), arguments: item);
+  void onItemTap(Media item) {
+    // Get.to(PathScreen(), arguments: item);
   }
 }
