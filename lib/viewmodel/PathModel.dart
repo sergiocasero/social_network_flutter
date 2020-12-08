@@ -1,8 +1,7 @@
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:social_network_flutter/model/Media.dart';
 import 'package:social_network_flutter/screen/MediaDetailScreen.dart';
 
 class PathModel extends GetxController {
@@ -29,12 +28,4 @@ class PathModel extends GetxController {
     final asset = this.assets.firstWhere((element) => element.id == id);
     Get.to(MediaDetailScreen(), arguments: asset);
   }
-}
-
-class Media {
-  final String id;
-  final Uint8List thumb;
-  final Future<File> file;
-
-  Media({this.id, this.thumb, this.file});
 }
