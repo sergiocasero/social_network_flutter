@@ -41,5 +41,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>Para poder manejar todas tus fotos, esta aplicación necesita permisos para acceder a ellas. Solo usaremos tus fotos para subirlas a tu nube privada</string>
 </dict>
 </plist>

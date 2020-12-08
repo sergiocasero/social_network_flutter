@@ -10,8 +10,20 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Obx(
-          () => Text(
-            _model.name.value,
+          () => ListView.builder(
+            itemCount: _model.assetPaths.length,
+            itemBuilder: (ctx, index) {
+              final item = _model.assetPaths[index];
+              return GestureDetector(
+                onTap: () => _model.onItemTap(item),
+                child: Card(
+                  child: ListTile(
+                    title: Text(item.name),
+                    trailing: Text(item.assetCount.toString()),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ),
