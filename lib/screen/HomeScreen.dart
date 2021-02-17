@@ -9,10 +9,31 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(
-            () => ListView.builder(
-          itemCount: _model.media.length,
-          itemBuilder: (ctx, index) => _day(_model.media[index]),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(child: Obx(() => Text("You have ${_model.withoutBackup} media without backup"))),
+                  ElevatedButton.icon(
+                    onPressed: () => _model.onUploadPressed(),
+                    icon: Icon(Icons.upload_file),
+                    label: Text("Upload"),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Obx(
+                () => ListView.builder(
+                  itemCount: _model.media.length,
+                  itemBuilder: (ctx, index) => _day(_model.media[index]),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

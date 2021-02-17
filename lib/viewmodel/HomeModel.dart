@@ -8,6 +8,7 @@ import 'package:social_network_flutter/model/MediaRange.dart';
 class HomeModel extends GetxController {
   final name = "".obs;
   final media = <Day>[].obs;
+  final withoutBackup = 0.obs;
 
   @override
   void onReady() {
@@ -27,22 +28,30 @@ class HomeModel extends GetxController {
       final items = await PhotoManager.getAssetPathList();
       final assets = <AssetEntity>[];
       for (final path in items) {
-        assets.addAll(
-            await path.getAssetListRange(start: 0, end: path.assetCount));
+        assets.addAll(await path.getAssetListRange(start: 0, end: path.assetCount));
       }
-      assets.sort((a1, a2) =>
-          a2.createDateTime.millisecondsSinceEpoch -
-          a1.createDateTime.millisecondsSinceEpoch);
+      assets.sort((a1, a2) => a2.createDateTime.millisecondsSinceEpoch - a1.createDateTime.millisecondsSinceEpoch);
 
       final days = Map<int, List<Media>>();
 
       var previousDay = 0;
-      print(assets.length);
+
+      final uploadedPhotos = await DI.repository.getMediaIds();
+
       for (final asset in assets) {
         final media = Media(
           id: asset.id,
           thumb: await asset.thumbDataWithSize(100, 100),
+          file: asset,
+          backup: uploadedPhotos.contains(asset.id),
         );
+
+        print(media.file);
+
+        if (!uploadedPhotos.contains(asset.id)) {
+          withoutBackup.value++;
+        }
+
         final day = getDayInMillis(asset.createDateTime);
         if (days.containsKey(day)) {
           days[day].add(media);
@@ -50,8 +59,7 @@ class HomeModel extends GetxController {
           days[day] = [media];
           if (previousDay != 0) {
             this.media.add(Day(
-                  DateFormat("dd/MM/yyyy")
-                      .format(DateTime.fromMillisecondsSinceEpoch(previousDay)),
+                  DateFormat("dd/MM/yyyy").format(DateTime.fromMillisecondsSinceEpoch(previousDay)),
                   days[previousDay],
                 ));
           }
@@ -63,14 +71,25 @@ class HomeModel extends GetxController {
 
   int getDayInMillis(DateTime dateTime) {
     return dateTime
-        .subtract(Duration(
-            hours: dateTime.hour,
-            minutes: dateTime.minute,
-            seconds: dateTime.second))
+        .subtract(Duration(hours: dateTime.hour, minutes: dateTime.minute, seconds: dateTime.second))
         .millisecondsSinceEpoch;
   }
 
   void onItemTap(Media item) {
     // Get.to(PathScreen(), arguments: item);
+  }
+
+  void onUploadPressed() {
+    print("hello");
+    this.media.forEach((element) async {
+      element.child.forEach((element) async {
+        if (!element.backup && element.file.type == AssetType.image) await _upload(element);
+      });
+    });
+  }
+
+  Future<void> _upload(Media media) async {
+    await DI.repository.upload(media.id, await media.file.file);
+    withoutBackup.value--;
   }
 }
