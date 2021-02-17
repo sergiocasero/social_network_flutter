@@ -65,7 +65,7 @@ class NetworkRemote extends Remote {
     );
     if (response.statusCode == HttpStatus.ok) {
       final body = json.decode(response.body);
-      return body.path;
+      return body["data"];
     } else {
       return "";
     }

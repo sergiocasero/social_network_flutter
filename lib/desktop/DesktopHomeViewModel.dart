@@ -11,16 +11,21 @@ class DesktopHomeViewModel extends GetxController {
   DesktopHomeViewModel(this._repository);
 
   @override
-  void onInit() {
+  void onReady() {
     _checkConfig();
-    super.onInit();
+    super.onReady();
   }
 
   void _checkConfig() async {
-    final path = await _repository.getPath();
-    _pathUI = path == "";
-    if (path != "") {
-      // _repository.getMediaThumbs();
+    try {
+      final path = await _repository.getPath();
+      _pathUI = path == "";
+      if (path != "") {
+        // _repository.getMediaThumbs();
+      }
+    } catch (e) {
+      print(e);
+      _pathUI = true;
     }
   }
 
