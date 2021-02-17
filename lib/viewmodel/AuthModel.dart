@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:social_network_flutter/datasource/di/DI.dart';
+import 'package:social_network_flutter/desktop/DesktopHomeScreen.dart';
 import 'package:social_network_flutter/domain/model/User.dart';
 import 'package:social_network_flutter/screen/HomeScreen.dart';
 
@@ -20,7 +24,11 @@ class AuthModel extends GetxController {
     loading.value = true;
     final loginSuccess = await DI.repository.login(email, pass.encrypt());
     if (loginSuccess) {
-      Get.offAll(HomeScreen());
+      if (!kIsWeb) {
+        Get.offAll(HomeScreen());
+      } else {
+        Get.offAll(DesktopHomeScreen());
+      }
     } else {
       Get.snackbar(
         "login_error_title".tr,

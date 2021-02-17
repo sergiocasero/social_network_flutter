@@ -9,15 +9,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Obx(
-          () => Padding(
-            padding: const EdgeInsets.all(1.0),
-            child: ListView.builder(
-              itemCount: _model.media.length,
-              itemBuilder: (ctx, index) => _day(_model.media[index]),
-            ),
-          ),
+      body: Obx(
+            () => ListView.builder(
+          itemCount: _model.media.length,
+          itemBuilder: (ctx, index) => _day(_model.media[index]),
         ),
       ),
     );

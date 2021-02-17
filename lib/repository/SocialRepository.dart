@@ -35,4 +35,14 @@ class SocialRepository extends Repository {
   Future<bool> register(User user) {
     return remote.register(user);
   }
+
+  @override
+  Future<String> getPath() async {
+    return remote.getPath(await local.getToken());
+  }
+
+  @override
+  Future<void> setPath(String path) async {
+    return remote.setPath(path, await local.getToken());
+  }
 }

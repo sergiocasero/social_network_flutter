@@ -6,4 +6,8 @@ abstract class Remote {
   Future<String> login(String id, String password);
 
   Future<bool> register(User user);
+
+  Future<String> getPath(String token);
+
+  Future<void> setPath(String path,String token);
 }

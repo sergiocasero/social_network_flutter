@@ -12,8 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  get: ^3.16.2
-  flutter_svg: ^0.19.1
+  get: ^3.25.0
+  flutter_svg: ^0.20.0-nullsafety.3
   shared_preferences: ^0.5.12+4
   http: ^0.12.2
   google_fonts: ^1.1.1

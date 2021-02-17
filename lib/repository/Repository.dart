@@ -8,4 +8,8 @@ abstract class Repository {
   Future<bool> register(User user);
 
   Future<User> getUser();
+
+  Future<String> getPath();
+
+  Future<void> setPath(String path);
 }

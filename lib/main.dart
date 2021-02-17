@@ -1,5 +1,8 @@
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:social_network_flutter/desktop/DesktopSplashScreen.dart';
 import 'package:social_network_flutter/screen/SplashScreen.dart';
 import 'package:social_network_flutter/tr/translations.dart';
 
@@ -20,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
+      home: !kIsWeb ? SplashScreen() : DesktopSplashScreen(),
     );
   }
 }
