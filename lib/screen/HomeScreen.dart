@@ -17,10 +17,14 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(child: Obx(() => Text("You have ${_model.withoutBackup} media without backup"))),
-                  ElevatedButton.icon(
-                    onPressed: () => _model.onUploadPressed(),
-                    icon: Icon(Icons.upload_file),
-                    label: Text("Upload"),
+                  Obx(
+                    () => ElevatedButton.icon(
+                      onPressed: () => _model.uploadStatus.value == UploadStatus.UPLOADING
+                          ? _model.onStopUploadPressed()
+                          : _model.onUploadPressed(),
+                      icon: Icon(_model.uploadStatus.value == UploadStatus.UPLOADING ? Icons.stop : Icons.upload_file),
+                      label: Text(_model.uploadStatus.value == UploadStatus.UPLOADING ? "Stop" : "Upload"),
+                    ),
                   ),
                 ],
               ),

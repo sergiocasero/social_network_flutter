@@ -9,6 +9,7 @@ class HomeModel extends GetxController {
   final name = "".obs;
   final media = <Day>[].obs;
   final withoutBackup = 0.obs;
+  final uploadStatus = UploadStatus.IDLE.obs;
 
   @override
   void onReady() {
@@ -46,15 +47,13 @@ class HomeModel extends GetxController {
           backup: uploadedPhotos.contains(asset.id),
         );
 
-        print(media.file);
-
-        if (!uploadedPhotos.contains(asset.id)) {
+        if (!uploadedPhotos.contains(asset.id.replaceAll("/", "_"))) {
           withoutBackup.value++;
         }
 
         final day = getDayInMillis(asset.createDateTime);
         if (days.containsKey(day)) {
-          days[day].add(media);
+          if (!days[day].contains(media)) days[day].add(media);
         } else {
           days[day] = [media];
           if (previousDay != 0) {
@@ -79,17 +78,35 @@ class HomeModel extends GetxController {
     // Get.to(PathScreen(), arguments: item);
   }
 
-  void onUploadPressed() {
-    print("hello");
-    this.media.forEach((element) async {
-      element.child.forEach((element) async {
-        if (!element.backup && element.file.type == AssetType.image) await _upload(element);
-      });
-    });
+  void onStopUploadPressed() {
+    uploadStatus.value = UploadStatus.IDLE;
+  }
+
+  void onUploadPressed() async {
+    uploadStatus.value = UploadStatus.UPLOADING;
+
+    _upload(this.media.first.child.first);
+
+    for (final folder in this.media) {
+      for (final item in folder.child) {
+        if (!item.backup && uploadStatus.value == UploadStatus.UPLOADING && item.file.type == AssetType.image) {
+          await _upload(item);
+        }
+      }
+    }
+
+    // this.media.forEach((element) async {
+    //   element.child.forEach((element) async {
+    //     if (!element.backup && element.file.type == AssetType.image) await _upload(element);
+    //   });
+    // });
   }
 
   Future<void> _upload(Media media) async {
+    print("Trying to upload ${media.id}");
     await DI.repository.upload(media.id, await media.file.file);
     withoutBackup.value--;
   }
 }
+
+enum UploadStatus { UPLOADING, IDLE }

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:photo_manager/photo_manager.dart';
@@ -12,4 +11,12 @@ class Media {
   final bool backup;
 
   Media({this.id, this.thumb, this.file, this.createdDate, this.modifiedDate, this.backup});
+
+  @override
+  bool operator ==(Object other) {
+    if (other is Media) {
+      return other.id == id;
+    }
+    return super == other;
+  }
 }

@@ -1,5 +1,9 @@
 PODS:
+  - Alamofire (4.9.1)
   - Flutter (1.0.0)
+  - flutter_uploader (1.2.0):
+    - Alamofire (= 4.9.1)
+    - Flutter
   - path_provider (0.0.1):
     - Flutter
   - photo_manager (0.0.1):
@@ -9,13 +13,20 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - flutter_uploader (from `.symlinks/plugins/flutter_uploader/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
 
+SPEC REPOS:
+  trunk:
+    - Alamofire
+
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  flutter_uploader:
+    :path: ".symlinks/plugins/flutter_uploader/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   photo_manager:
@@ -24,7 +35,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences/ios"
 
 SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  flutter_uploader: 7957e1b9d6516b6cccc37e5ffd6c5a0975a7cc4c
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   photo_manager: f7c619c2cc8c2adb8d85c63363babac477de9c67
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d

@@ -24,6 +24,8 @@ dependencies:
   photo_view: ^0.10.3
   intl: ^0.16.1
   dio: 3.0.10
+  flutter_uploader: ^1.2.1
+  pretty_dio_logger: ^1.1.1
 
 dev_dependencies:
   flutter_test:
